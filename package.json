@@ -18,7 +18,8 @@
   "homepage": "https://github.com/maxdeviant/nestor",
   "dependencies": {
     "body-parser": "^1.12.2",
-    "express": "^4.12.3"
+    "express": "^4.12.3",
+    "request": "^2.54.0"
   },
   "devDependencies": {
     "gulp": "^3.8.11",

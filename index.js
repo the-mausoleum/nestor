@@ -1,5 +1,7 @@
 'use strict';
 
+var config = require('./config');
+
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -12,7 +14,9 @@ var router = express.Router();
 
 router.route('/')
     .get(function (req, res) {
-        console.log('Nestor awakens');
+        var api = require('./nestor/api');
+
+        api.test();
     });
 
 app.use('/', router);
