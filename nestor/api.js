@@ -13,7 +13,10 @@ var api = function () {
                     token: config.api_token
                 }
             }, function (error, response, body) {
-                console.log(response.statusCode);
+                if (response.statusCode !== 200) {
+                    throw body;
+                }
+
                 var payload = JSON.parse(body);
 
                 var WebSocket = require('faye-websocket');
@@ -24,7 +27,20 @@ var api = function () {
                 });
 
                 socket.on('message', function (event) {
-                    console.log(event.data);
+                    var message = JSON.parse(event.data);
+
+                    console.log(message);
+
+                    switch (message.type) {
+                        case 'message':
+                            if (message.text) {
+                                if (/@?nestor/gi.test(message.text)) {
+                                    console.log('I heard my name!');
+                                }
+                            }
+                            break;
+                        default:
+                    }
                 });
             });
         };
