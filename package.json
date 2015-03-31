@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/maxdeviant/nestor/issues"
   },
-  "homepage": "https://github.com/maxdeviant/nestor"
+  "homepage": "https://github.com/maxdeviant/nestor",
+  "dependencies": {
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-nodemon": "^2.0.2"
+  }
 }
