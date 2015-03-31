@@ -12,16 +12,10 @@ app.use(bodyParser.json());
 
 var router = express.Router();
 
-router.route('/')
-    .get(function (req, res) {
-
-        api.rtm.start();
-    });
-
-app.use('/', router);
-
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function () {
+    api.rtm.start();
+
     console.log('Nestor listening on port ' + server.address().port);
 });
