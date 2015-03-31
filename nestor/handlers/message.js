@@ -8,18 +8,24 @@ var handleMessage = function (message) {
 
     console.log(message);
 
+    if (process.env.user_id === message.user) {
+        return;
+    }
+
     switch (message.type) {
         case 'message':
-            if (message.text) {
-                if (/@?nestor/gi.test(message.text)) {
-                    if (/hello|hi|xoka/i.test(message.text)) {
-                        chat.postMessage(message.channel, util.format('Good day, <@%s>!', message.user), {
-                            as_user: true
-                        });
-                    }
+            if (/@?nestor/gi.test(message.text)) {
+                if (/hello|hi|xoka/i.test(message.text)) {
+                    return chat.postMessage(message.channel, util.format('Good day, <@%s>!', message.user), {
+                        as_user: true
+                    });
                 }
+
+                return chat.postMessage(message.channel, util.format('I\'m not quite sure what to tell you, <@%s>.', message.user), {
+                    as_user: true
+                });
+                break;
             }
-            break;
         default:
     }
 
