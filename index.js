@@ -5,6 +5,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var auth = require('./nestor/api/auth');
+var users = require('./nestor/api/users');
 var rtm = require('./nestor/api/rtm');
 
 var app = express();
@@ -22,7 +23,9 @@ var server = app.listen(app.get('port'), function () {
         process.env.team_id = data.team_id;
         process.env.user_id = data.user_id
 
-        rtm.start();
+        users.setPresence('auto').then(function (data) {
+            rtm.start();
+        });
     });
 
     console.log('Nestor listening on port ' + server.address().port);
