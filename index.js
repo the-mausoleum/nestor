@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 
-var api = require('./nestor/api');
+var rtm = require('./nestor/api/rtm');
 
 var app = express();
 
@@ -15,7 +15,9 @@ var router = express.Router();
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function () {
-    api.rtm.start();
+    process.env.token = require('./config').api_token;
+
+    rtm.start();
 
     console.log('Nestor listening on port ' + server.address().port);
 });
