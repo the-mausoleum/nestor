@@ -21,6 +21,12 @@ var handleMessage = function (message) {
                     });
                 }
 
+                if (/goodbye|bye|xopa/i.test(message.text)) {
+                    return chat.postMessage(message.channel, util.format('Farewell, <@%s>!', message.user), {
+                        as_user: true
+                    });
+                }
+
                 return chat.postMessage(message.channel, util.format('I\'m not quite sure what to tell you, <@%s>.', message.user), {
                     as_user: true
                 });
