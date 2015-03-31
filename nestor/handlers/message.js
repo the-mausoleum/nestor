@@ -14,7 +14,9 @@ var handleMessage = function (message) {
 
     switch (message.type) {
         case 'message':
-            if (/@?nestor/gi.test(message.text)) {
+            var targeted = new RegExp(util.format('(^<@%s>)|(^nestor)', process.env.user_id), 'i')
+
+            if (targeted.test(message.text)) {
                 if (/hello|hi|xoka/i.test(message.text)) {
                     return chat.postMessage(message.channel, util.format('Good day, <@%s>!', message.user), {
                         as_user: true
