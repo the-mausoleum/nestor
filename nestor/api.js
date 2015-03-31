@@ -5,6 +5,27 @@ var request = require('request');
 
 var api = function () {
 
+    var chat = function () {
+
+        var postMessage = function (channel, text, options) {
+            request.post('https://slack.com/api/chat.postMessage', {
+                form: {
+                    token: config.api_token,
+                    channel: channel,
+                    text: text,
+                    as_user: options.as_user
+                }
+            }, function (error, response, body) {
+                console.log(response.statusCode);
+                console.log(body);
+            });
+        };
+
+        return {
+            'postMessage': postMessage
+        };
+    }();
+
     var rtm = function () {
 
         var start = function () {
@@ -35,7 +56,9 @@ var api = function () {
                         case 'message':
                             if (message.text) {
                                 if (/@?nestor/gi.test(message.text)) {
-                                    console.log('I heard my name!');
+                                    chat.postMessage(message.channel, 'Hello, World!', {
+                                        as_user: true
+                                    });
                                 }
                             }
                             break;
