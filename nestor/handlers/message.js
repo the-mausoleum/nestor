@@ -32,8 +32,8 @@ var handleMessage = function (message) {
                 return chat.postMessage(message.channel, util.format('I\'m not quite sure what to tell you, <@%s>.', message.user), {
                     as_user: true
                 });
-                break;
             }
+            break;
         default:
     }
 
