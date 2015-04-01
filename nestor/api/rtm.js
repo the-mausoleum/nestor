@@ -1,34 +1,24 @@
 'use strict';
 
+var q = require('q');
 var request = require('request');
 
-var handleMessage = require('../handlers/message');
-
 var start = function () {
+    var deferred = q.defer();
+
     request.post('https://slack.com/api/rtm.start', {
         form: {
             token: process.env.token
         }
     }, function (error, response, body) {
-        if (response.statusCode !== 200) {
-            throw body;
+        if (response.statusCode === 200) {
+            deferred.resolve(JSON.parse(body));
         }
 
-        var payload = JSON.parse(body);
-
-        var WebSocket = require('faye-websocket');
-        var socket = new WebSocket.Client(payload.url);
-
-        socket.on('open', function (event) {
-            console.log('opened socket');
-        });
-
-        socket.on('message', function (event) {
-            var message = JSON.parse(event.data);
-
-            handleMessage(message);
-        });
+        deferred.reject(error);
     });
+
+    return deferred.promise;
 };
 
 module.exports = {
